@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM arm32v7/alpine:3.10
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -81,8 +81,8 @@ RUN apk --update --no-cache add \
   && pip2 install python-memcached \
   && pip3 install --upgrade pip \
   && pip3 install python-memcached \
-  && wget -q "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64.tar.gz" -qO "/tmp/s6-overlay-amd64.tar.gz" \
-  && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / \
+  && wget -q "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-armhf.tar.gz" -qO "/tmp/s6-overlay-armhf.tar.gz" \
+  && tar xzf /tmp/s6-overlay-armhf.tar.gz -C / \
   && rm -rf /var/cache/apk/* /var/www/* /tmp/* \
   && setcap cap_net_raw+ep /usr/bin/nmap \
   && setcap cap_net_raw+ep /usr/sbin/fping
