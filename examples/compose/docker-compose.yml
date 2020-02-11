@@ -44,7 +44,7 @@ services:
     restart: always
 
   smtp:
-    image: juanluisbaptiste/postfix
+    image: foobox/postfix:3.4.7-arm64v8
     container_name: librenms_smtp
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
@@ -56,10 +56,10 @@ services:
     restart: always
 
   librenms:
-    image: librenms/librenms:latest
+    image: intreal/librenms-arm:latest
     container_name: librenms
     domainname: example.com
-    hostname: librenms
+    hostname: nms
     ports:
       - target: 8000
         published: 8000
@@ -85,7 +85,7 @@ services:
     restart: always
 
   cron:
-    image: librenms/librenms:latest
+    image: intreal/librenms-arm:latest
     container_name: librenms_cron
     domainname: example.com
     hostname: librenms
@@ -108,7 +108,7 @@ services:
     restart: always
 
   syslog-ng:
-    image: librenms/librenms:latest
+    image: intreal/librenms-arm:latest
     container_name: librenms_syslog
     domainname: example.com
     hostname: librenms
