@@ -1,4 +1,4 @@
-FROM arm32v7/alpine:3.10
+FROM arm64v8/alpine:3.10
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -73,7 +73,7 @@ RUN apk --update --no-cache add \
     runit \
     shadow \
     su-exec \
-    syslog-ng \
+#    syslog-ng \
     ttf-dejavu \
     tzdata  \
     util-linux \
@@ -88,11 +88,16 @@ RUN apk --update --no-cache add \
   && setcap cap_net_raw+ep /usr/bin/nmap \
   && setcap cap_net_raw+ep /usr/sbin/fping
 
+RUN cp /etc/apk/repositories /etc/apk/repositories.bak \
+  && echo "http://dl-3.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
+  && apk add syslog-ng --update --no-cache \
+  && cat /etc/apk/repositories.bak > /etc/apk/repositories
+
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS="2" \
   LIBRENMS_VERSION="1.62.2" \
   LIBRENMS_PATH="/opt/librenms" \
   LIBRENMS_DOCKER="1" \
-  TZ="UTC" \
+  TZ="MSK" \
   PUID="1000" \
   PGID="1000"
 
