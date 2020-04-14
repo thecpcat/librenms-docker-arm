@@ -5,15 +5,15 @@ ARG VCS_REF
 ARG VERSION
 
 LABEL maintainer="CrazyMax" \
-  org.label-schema.build-date=$BUILD_DATE \
-  org.label-schema.name="librenms" \
-  org.label-schema.description="LibreNMS" \
-  org.label-schema.version=$VERSION \
-  org.label-schema.url="https://github.com/librenms/docker" \
-  org.label-schema.vcs-ref=$VCS_REF \
-  org.label-schema.vcs-url="https://github.com/librenms/docker" \
-  org.label-schema.vendor="LibreNMS" \
-  org.label-schema.schema-version="1.0"
+  org.opencontainers.image.created=$BUILD_DATE \
+  org.opencontainers.image.url="https://github.com/librenms/docker" \
+  org.opencontainers.image.source="https://github.com/librenms/docker" \
+  org.opencontainers.image.version=$VERSION \
+  org.opencontainers.image.revision=$VCS_REF \
+  org.opencontainers.image.vendor="CrazyMax" \
+  org.opencontainers.image.title="LibreNMS" \
+  org.opencontainers.image.description="LibreNMS" \
+  org.opencontainers.image.licenses="MIT"
 
 RUN apk --update --no-cache add \
     busybox-extras \
@@ -61,6 +61,7 @@ RUN apk --update --no-cache add \
     php7-session \
     php7-simplexml \
     php7-snmp \
+    php7-sockets \
     php7-tokenizer \
     php7-xml \
     php7-zip \
@@ -88,7 +89,7 @@ RUN apk --update --no-cache add \
   && setcap cap_net_raw+ep /usr/sbin/fping
 
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS="2" \
-  LIBRENMS_VERSION="1.61" \
+  LIBRENMS_VERSION="1.62.2" \
   LIBRENMS_PATH="/opt/librenms" \
   LIBRENMS_DOCKER="1" \
   TZ="UTC" \
@@ -114,8 +115,7 @@ RUN mkdir -p /opt \
 COPY rootfs /
 
 RUN addgroup -g ${PGID} librenms \
-  && adduser -D -h ${LIBRENMS_PATH} -u ${PUID} -G librenms -s /bin/sh -D librenms \
-  && mkdir -p /data /var/run/nginx /var/run/php-fpm
+  && adduser -D -h ${LIBRENMS_PATH} -u ${PUID} -G librenms -s /bin/sh -D librenms
 
 EXPOSE 8000 514 514/udp
 WORKDIR ${LIBRENMS_PATH}

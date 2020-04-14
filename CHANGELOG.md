@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.62.2-RC2 (2020/04/13)
+
+* Fix log file permissions (#66)
+* Switch to Open Container Specification labels as label-schema.org ones are deprecated
+
+## 1.62.2-RC1 (2020/04/04)
+
+* LibreNMS 1.62.2
+
+## 1.61-RC4 (2020/03/27)
+
+* Fix folder creation (#62)
+
+## 1.61-RC3 (2020/03/22)
+
+* Allow multi discovery workers through `LIBRENMS_CRON_DISCOVERY_WRAPPER_WORKERS` env var (#59)
+
+## 1.61-RC2 (2020/03/05)
+
+* Add `php7-sockets` extension (#61)
+
 ## 1.61-RC1 (2020/03/02)
 
 * LibreNMS 1.61

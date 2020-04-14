@@ -15,7 +15,7 @@
 ### (Distributed) Poller
 
 * `LIBRENMS_POLLER_THREADS`: Threads that `poller-wrapper.py` runs (default `16`)
-* `LIBRENMS_POLLER_INTERVAL`: Interval in minutes at which `poller-wrapper.py` runs (defaults to `5`) [docs](https://docs.librenms.org/#Support/1-Minute-Polling/)
+* `LIBRENMS_POLLER_INTERVAL`: Interval in minutes at which `poller-wrapper.py` runs (defaults to `5`) [docs](https://docs.librenms.org/Support/1-Minute-Polling/)
 * `LIBRENMS_DISTRIBUTED_POLLER_ENABLE`: Enable distributed poller functionality
 * `LIBRENMS_DISTRIBUTED_POLLER_NAME`: Optional name of poller (defaults to hostname)
 * `LIBRENMS_DISTRIBUTED_POLLER_GROUP`: By default, all hosts are shared and have the poller_group = 0. To pin a device to a poller, set it to a value greater than 0 and set the same value here. One can also specify a comma separated string of poller groups. The poller will then poll devices from any of the groups listed. [docs](https://docs.librenms.org/#Extensions/Distributed-Poller/#distributed-poller)
@@ -28,6 +28,7 @@
 
 * `SIDECAR_CRON`: Set to `1` to enable sidecar cron mode for this container (default `0`)
 * `LIBRENMS_CRON_DISCOVERY_ENABLE`: Enable LibreNMS discovery for this container cronjobs (default `true`)
+* `LIBRENMS_CRON_DISCOVERY_WRAPPER_WORKERS`: Spawn multiple discovery.php processes in parallel (default `1`)
 * `LIBRENMS_CRON_DAILY_ENABLE`: Enable LibreNMS daily script for this container cronjobs (default `true`)
 * `LIBRENMS_CRON_ALERTS_ENABLE`: Enable LibreNMS alerts generation for this container cronjobs (default `true`)
 * `LIBRENMS_CRON_BILLING_ENABLE`: Enable LibreNMS billing polling for this container cronjobs (default `true`)
