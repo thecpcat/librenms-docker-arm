@@ -88,7 +88,7 @@ RUN apk --update --no-cache add \
   && pip2 install python-memcached mysqlclient \
   && pip3 install --upgrade pip \
   && pip3 install python-memcached mysqlclient \
-  && wget -q "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64.tar.gz" -qO "/tmp/s6-overlay-armhf.tar.gz" \
+  && wget -q "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-armhf.tar.gz" -qO "/tmp/s6-overlay-armhf.tar.gz" \
   && tar xzf /tmp/s6-overlay-armhf.tar.gz -C / \
   && apk del build-dependencies \
   && rm -rf /var/cache/apk/* /var/www/* /tmp/* \
