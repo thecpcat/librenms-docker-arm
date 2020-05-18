@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.63-RC3 (2020/05/13)
+
+* Run librenms-service as librenms user (#76)
+* Mark sidecar cron container as deprecated
+
+## 1.63-RC2 (2020/05/08)
+
+* Fix poller-wrapper
+
+## 1.63-RC1 (2020/05/08)
+
+* LibreNMS 1.63
+* Add sidecar dispatcher container (#70)
+* Add `LISTEN_IPV6` env var (#71)
+* Alpine Linux 3.11
+
 ## 1.62.2-RC2 (2020/04/13)
 
 * Fix log file permissions (#66)

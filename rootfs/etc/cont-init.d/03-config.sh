@@ -28,6 +28,7 @@ TZ=${TZ:-UTC}
 MEMORY_LIMIT=${MEMORY_LIMIT:-256M}
 UPLOAD_MAX_SIZE=${UPLOAD_MAX_SIZE:-16M}
 OPCACHE_MEM_SIZE=${OPCACHE_MEM_SIZE:-128}
+LISTEN_IPV6=${LISTEN_IPV6:-true}
 REAL_IP_FROM=${REAL_IP_FROM:-"0.0.0.0/32"}
 REAL_IP_HEADER=${REAL_IP_HEADER:-"X-Forwarded-For"}
 LOG_IP_VAR=${LOG_IP_VAR:-remote_addr}
@@ -45,9 +46,6 @@ DB_PORT=${DB_PORT:-3306}
 DB_NAME=${DB_NAME:-librenms}
 DB_USER=${DB_USER:-librenms}
 DB_TIMEOUT=${DB_TIMEOUT:-30}
-
-SIDECAR_CRON=${SIDECAR_CRON:-0}
-SIDECAR_SYSLOGNG=${SIDECAR_SYSLOGNG:-0}
 
 # Timezone
 echo "Setting timezone to ${TZ}..."
@@ -76,6 +74,10 @@ sed -e "s#@UPLOAD_MAX_SIZE@#$UPLOAD_MAX_SIZE#g" \
   -e "s#@REAL_IP_HEADER@#$REAL_IP_HEADER#g" \
   -e "s#@LOG_IP_VAR@#$LOG_IP_VAR#g" \
   /tpls/etc/nginx/nginx.conf > /etc/nginx/nginx.conf
+
+if [ "$LISTEN_IPV6" != "true" ]; then
+  sed -e '/listen \[::\]:/d' -i /etc/nginx/nginx.conf
+fi
 
 # SNMP
 echo "Updating SNMP community..."

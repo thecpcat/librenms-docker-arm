@@ -1,4 +1,4 @@
-FROM arm64v8/alpine:3.10
+FROM arm64v8/alpine:3.11
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -65,7 +65,6 @@ RUN apk --update --no-cache add \
     php7-tokenizer \
     php7-xml \
     php7-zip \
-    py-mysqldb \
     python \
     py2-pip \
     python3 \
@@ -78,12 +77,20 @@ RUN apk --update --no-cache add \
     tzdata  \
     util-linux \
     whois \
+  && apk --update --no-cache add -t build-dependencies \
+    gcc \
+    make \
+    mariadb-dev \
+    musl-dev \
+    python-dev \
+    python3-dev \
   && pip2 install --upgrade pip \
-  && pip2 install python-memcached \
+  && pip2 install python-memcached mysqlclient \
   && pip3 install --upgrade pip \
-  && pip3 install python-memcached \
-  && wget -q "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-armhf.tar.gz" -qO "/tmp/s6-overlay-armhf.tar.gz" \
+  && pip3 install python-memcached mysqlclient \
+  && wget -q "https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64.tar.gz" -qO "/tmp/s6-overlay-armhf.tar.gz" \
   && tar xzf /tmp/s6-overlay-armhf.tar.gz -C / \
+  && apk del build-dependencies \
   && rm -rf /var/cache/apk/* /var/www/* /tmp/* \
   && setcap cap_net_raw+ep /usr/bin/nmap \
   && setcap cap_net_raw+ep /usr/sbin/fping
@@ -94,7 +101,7 @@ RUN cp /etc/apk/repositories /etc/apk/repositories.bak \
   && cat /etc/apk/repositories.bak > /etc/apk/repositories
 
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS="2" \
-  LIBRENMS_VERSION="1.62.2" \
+  LIBRENMS_VERSION="1.63" \
   LIBRENMS_PATH="/opt/librenms" \
   LIBRENMS_DOCKER="1" \
   TZ="MSK" \
